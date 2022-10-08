@@ -4,5 +4,11 @@ public enum Role : byte
 {
     Administrator,
     
-    User
+    User,
+    
+    Director,
+    
+    Leader,
+    
+    Intern
 }

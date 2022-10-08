@@ -9,6 +9,8 @@ namespace MoretechBack.Database;
 public sealed class ConnectionsContext : DbContext
 {
     public DbSet<User> Users { get; private set; }
+    
+    public DbSet<Product> Products { get; private set; }
 
     public ConnectionsContext(DbContextOptions<ConnectionsContext> options) : base(options)
     {
@@ -27,5 +29,6 @@ public sealed class ConnectionsContext : DbContext
         modelBuilder.ApplyConfiguration(new AchievementConfiguration());
         modelBuilder.ApplyConfiguration(new NotificationConfiguration());
         modelBuilder.ApplyConfiguration(new NotificationStatusConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
     }
 }

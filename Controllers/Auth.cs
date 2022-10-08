@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MoretechBack.Auth;
 using MoretechBack.Database;
 
 namespace MoretechBack.Controllers;
@@ -29,7 +29,7 @@ public class Auth : Controller
         var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Secret phaseSecret phaseSecret phaseSecret phaseSecret phaseSecret phase"));
         
         var jwt = new JwtSecurityToken(
-            expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
+            expires: now.Add(TimeSpan.FromMinutes(60)),
             signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
         );
         string? encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -39,7 +39,7 @@ public class Auth : Controller
     
     private async Task<Guid?> GetUser(string login, string password)
     {
-        var user = context.Users.FirstOrDefault(user => user.Email == login && user.Password == password);
+        var user = await context.Users.FirstOrDefaultAsync(user => user.Email == login && user.Password == password);
         if (user == null)
             return null;
         

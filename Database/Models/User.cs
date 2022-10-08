@@ -30,7 +30,9 @@ public class User
 
     public string PrivateKey { get; protected set; } = null!;
 
-    public List<Achievement> Achievements { get; set; } = null!;
+    public List<Achievement> Achievements { get; } = new();
 
-    public List<Notification> Notification { get; set; } = null!;
+    public List<Notification> Notification { get; } = new();
+
+    public List<Order> Orders { get; } = new();
 }

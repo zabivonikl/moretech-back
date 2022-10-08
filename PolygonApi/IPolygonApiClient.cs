@@ -8,4 +8,6 @@ public interface IPolygonApiClient
     Task<List<HistoryRecord>> GetHistory(User user);
 
     Task<double> GetRubleBalance(User user);
+
+    Task DecreaseMoney(User user, double amount);
 }
