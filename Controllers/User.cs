@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MoretechBack.Database;
 using MoretechBack.PolygonApi;
 
@@ -26,7 +27,7 @@ public class User : Controller
         if (!Guid.TryParse(id, out var parsedId)) 
             return BadRequest();
         
-        var user = context.Users.FirstOrDefault(u => u.Id == parsedId);
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Id == parsedId);
         if (user == null)
             return BadRequest();
         
@@ -38,10 +39,10 @@ public class User : Controller
             user.Email,
             user.Avatar,
             Balance = await polygonClient.GetRubleBalance(user),
-            Transactions = rawTransactions.Select(transaction => new
+            Transactions = rawTransactions.Select(async transaction => new
             {
-                From = context.Users.FirstOrDefault(u => u.PublicKey.ToLower() == transaction.From.ToLower())?.FullName ?? "Unknown user",
-                To = context.Users.FirstOrDefault(u => u.PublicKey.ToLower() == transaction.To.ToLower())?.FullName ?? "Unknown user",
+                From = (await context.Users.FirstOrDefaultAsync(u => u.PublicKey.ToLower() == transaction.From.ToLower()))?.FullName ?? "Unknown user",
+                To = (await context.Users.FirstOrDefaultAsync(u => u.PublicKey.ToLower() == transaction.To.ToLower()))?.FullName ?? "Unknown user",
                 transaction.Value,
                 transaction.TokenId,
                 Time = transaction.TimeStamp,

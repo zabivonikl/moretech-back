@@ -31,6 +31,15 @@
         <Compile Update="Database\Models\NotificationStatusConfiguration.cs">
           <DependentUpon>NotificationStatus.cs</DependentUpon>
         </Compile>
+        <Compile Update="Database\Models\ProductConfiguration.cs">
+          <DependentUpon>Product.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Database\Models\OrderConfiguration.cs">
+          <DependentUpon>Order.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Database\Models\OrderStatus.cs">
+          <DependentUpon>Order.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
