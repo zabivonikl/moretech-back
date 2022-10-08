@@ -10,5 +10,5 @@ public class NotificationStatus
     
     public string Name { get; protected set; } = null!;
 
-    public List<NotificationStatusRelation> NotificationStatusRelations = null!;
+    public List<Notification> Notifications = null!;
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace MoretechBack.Database.Models;
 
@@ -10,6 +11,7 @@ public class Notification
     
     public User Owner { get; set; } = null!;
     
+    [JsonIgnore]
     private Guid OwnerId { get; set; }
     
     public string ShortDescription { get; set; } = null!;
@@ -18,5 +20,5 @@ public class Notification
 
     public bool Read { get; set; } = false;
 
-    public List<NotificationStatusRelation> NotificationStatusRelations = null!;
+    public List<NotificationStatus> NotificationStatus = null!;
 }
