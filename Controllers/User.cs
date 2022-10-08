@@ -49,7 +49,7 @@ public class User : Controller
                 transaction.TokenId,
                 Time = transaction.TimeStamp,
                 Currency = transaction.TokenName
-            }),
+            }).Select(t => t.Result),
             user.Achievements
         };
         

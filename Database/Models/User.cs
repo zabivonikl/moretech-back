@@ -30,7 +30,7 @@ public class User
 
     public string PrivateKey { get; protected set; } = null!;
 
-    public List<Achievement> Achievements { get; } = new();
+    public List<UserAchievement> Achievements { get; } = new();
 
     public List<Notification> Notification { get; } = new();
 

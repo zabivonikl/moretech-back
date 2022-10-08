@@ -22,10 +22,10 @@ public class Notification : Controller
             return BadRequest();
         
         var user = await context.Users.Include(user => user.Notification).FirstOrDefaultAsync(u => u.Id == parsedId);
-        if (user == null || user.Notification == null)
+        if (user == null)
             return BadRequest();
 
-        foreach (Database.Models.Notification notification in user.Notification)
+        foreach (var notification in user.Notification)
         {
             notification.Read = true;
         }

@@ -11,6 +11,8 @@ public sealed class ConnectionsContext : DbContext
     public DbSet<User> Users { get; private set; }
     
     public DbSet<Product> Products { get; private set; }
+    
+    public DbSet<GlobalAchievement> Achievements { get; private set; }
 
     public ConnectionsContext(DbContextOptions<ConnectionsContext> options) : base(options)
     {
@@ -26,9 +28,10 @@ public sealed class ConnectionsContext : DbContext
             .UsingEntity(j => j.ToTable("NotificationStatusRelation"));
         
         modelBuilder.ApplyConfiguration(new UserConfiguration());
-        modelBuilder.ApplyConfiguration(new AchievementConfiguration());
+        modelBuilder.ApplyConfiguration(new GlobalAchievementConfiguration());
         modelBuilder.ApplyConfiguration(new NotificationConfiguration());
         modelBuilder.ApplyConfiguration(new NotificationStatusConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new UserAchievementConfiguration());
     }
 }

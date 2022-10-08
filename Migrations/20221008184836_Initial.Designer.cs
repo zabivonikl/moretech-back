@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoretechBack.Migrations
 {
     [DbContext(typeof(ConnectionsContext))]
-    [Migration("20221008170156_UpdateOrders")]
-    partial class UpdateOrders
+    [Migration("20221008184836_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,21 +24,15 @@ namespace MoretechBack.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MoretechBack.Database.Models.Achievement", b =>
+            modelBuilder.Entity("MoretechBack.Database.Models.GlobalAchievement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Current")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -49,9 +43,7 @@ namespace MoretechBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Achievement");
+                    b.ToTable("Achievements");
                 });
 
             modelBuilder.Entity("MoretechBack.Database.Models.Notification", b =>
@@ -94,27 +86,6 @@ namespace MoretechBack.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NotificationStatus");
-                });
-
-            modelBuilder.Entity("MoretechBack.Database.Models.NotificationStatusRelation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("NotificationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("NotificationStatusId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NotificationId");
-
-                    b.HasIndex("NotificationStatusId");
-
-                    b.ToTable("NotificationStatusRelation");
                 });
 
             modelBuilder.Entity("MoretechBack.Database.Models.Order", b =>
@@ -232,15 +203,38 @@ namespace MoretechBack.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MoretechBack.Database.Models.Achievement", b =>
+            modelBuilder.Entity("MoretechBack.Database.Models.UserAchievement", b =>
                 {
-                    b.HasOne("MoretechBack.Database.Models.User", "Owner")
-                        .WithMany("Achievements")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Navigation("Owner");
+                    b.Property<int>("Current")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("UserAchievement");
+                });
+
+            modelBuilder.Entity("NotificationNotificationStatus", b =>
+                {
+                    b.Property<Guid>("NotificationStatusId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("NotificationsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("NotificationStatusId", "NotificationsId");
+
+                    b.HasIndex("NotificationsId");
+
+                    b.ToTable("NotificationStatusRelation", (string)null);
                 });
 
             modelBuilder.Entity("MoretechBack.Database.Models.Notification", b =>
@@ -252,25 +246,6 @@ namespace MoretechBack.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("MoretechBack.Database.Models.NotificationStatusRelation", b =>
-                {
-                    b.HasOne("MoretechBack.Database.Models.Notification", "Notification")
-                        .WithMany()
-                        .HasForeignKey("NotificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MoretechBack.Database.Models.NotificationStatus", "NotificationStatus")
-                        .WithMany()
-                        .HasForeignKey("NotificationStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Notification");
-
-                    b.Navigation("NotificationStatus");
                 });
 
             modelBuilder.Entity("MoretechBack.Database.Models.Order", b =>
@@ -290,6 +265,32 @@ namespace MoretechBack.Migrations
                     b.Navigation("Owner");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MoretechBack.Database.Models.UserAchievement", b =>
+                {
+                    b.HasOne("MoretechBack.Database.Models.User", "Owner")
+                        .WithMany("Achievements")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("NotificationNotificationStatus", b =>
+                {
+                    b.HasOne("MoretechBack.Database.Models.NotificationStatus", null)
+                        .WithMany()
+                        .HasForeignKey("NotificationStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MoretechBack.Database.Models.Notification", null)
+                        .WithMany()
+                        .HasForeignKey("NotificationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MoretechBack.Database.Models.User", b =>
