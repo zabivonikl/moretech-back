@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoretechBack.Database;
 using MoretechBack.PolygonApi;
 
 namespace MoretechBack.Controllers;
 
-// [Authorize]
+[Authorize]
 [ApiController]
 [Route("[controller]/[action]")]
 public class User : Controller

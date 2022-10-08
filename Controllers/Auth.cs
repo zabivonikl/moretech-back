@@ -18,9 +18,11 @@ public class Auth : Controller
     }
     
     [HttpPost("/login")]
-    public IActionResult Token(string login, string password)
+    public async Task<IActionResult> Token(string login, string password)
     {
-        if (!IsUserDataCorrect(login, password)) return Unauthorized();
+        var userGuid = await GetUser(login, password);
+        if (userGuid == null) 
+            return Unauthorized();
 
         var now = DateTime.UtcNow;
         
@@ -30,12 +32,17 @@ public class Auth : Controller
         );
         string? encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
  
-        return Json(encodedJwt);
+        return Json(new { Token = encodedJwt, Id = userGuid });
     }
     
-    private bool IsUserDataCorrect(string login, string password)
+    private async Task<Guid?> GetUser(string login, string password)
     {
         var user = context.Users.FirstOrDefault(user => user.Email == login && user.Password == password);
-        return user != null;
+        if (user == null)
+            return null;
+        
+        user.LastLogin = DateTime.Now;
+        await context.SaveChangesAsync();
+        return user.Id;
     }
 }

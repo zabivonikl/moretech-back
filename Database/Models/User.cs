@@ -3,6 +3,7 @@
 namespace MoretechBack.Database.Models;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+[SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
 public class User
 {
     protected User() { }
@@ -16,6 +17,14 @@ public class User
     public string Password { get; protected set; } = null!;
 
     public string Avatar { get; protected set; } = null!;
+
+    public Role Role { get; protected set; }
+
+    public DateTime LastLogin { get; set; }
+
+    public string Division { get; protected set; } = null!;
+
+    public string Post { get; protected set; } = null!;
 
     public string PublicKey { get; protected set; } = null!;
 
