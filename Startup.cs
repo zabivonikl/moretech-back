@@ -30,14 +30,17 @@ public class Startup
         serviceCollection.AddSwaggerGen();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ConnectionsContext connectionsContext)
     {
         if (env.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        
+        connectionsContext.Database.Migrate();
+        Console.WriteLine("Database migrated");
+        
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
