@@ -7,7 +7,7 @@ using MoretechBack.Database;
 namespace MoretechBack.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("auth/")]
 public class Auth : Controller
 {
     private readonly ConnectionsContext context;
@@ -17,7 +17,7 @@ public class Auth : Controller
         this.context = context;
     }
     
-    [HttpPost("/auth/login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Token(string login, string password)
     {
         var userGuid = await GetUser(login, password);

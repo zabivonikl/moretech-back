@@ -7,7 +7,7 @@ namespace MoretechBack.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("user/")]
 public class User : Controller
 {
     private readonly ConnectionsContext context;
@@ -20,7 +20,7 @@ public class User : Controller
         this.polygonClient = polygonClient;
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get/{id}")]
     public async Task<IActionResult> Get(string id)
     {
         if (!Guid.TryParse(id, out var parsedId)) 

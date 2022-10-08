@@ -5,7 +5,7 @@ using MoretechBack.Database;
 namespace MoretechBack.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("notification/")]
 public class Notification : Controller
 {
     private readonly ConnectionsContext context;
@@ -15,7 +15,7 @@ public class Notification : Controller
         this.context = context;
     }
 
-    [HttpGet("/read")]
+    [HttpGet("read")]
     public string[] Get()
     {
         //TODO реализовать прочтение ачивки

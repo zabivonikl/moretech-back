@@ -25,6 +25,12 @@
         <Compile Update="Database\Models\UserConfiguration.cs">
             <DependentUpon>User.cs</DependentUpon>
         </Compile>
+        <Compile Update="Database\Models\NotificationConfiguration.cs">
+          <DependentUpon>Notification.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Database\Models\NotificationStatusConfiguration.cs">
+          <DependentUpon>NotificationStatus.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

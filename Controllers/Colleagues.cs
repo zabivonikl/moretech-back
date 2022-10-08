@@ -7,7 +7,7 @@ namespace MoretechBack.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("сolleagues/")]
 public class Colleagues : Controller
 {
     private readonly ConnectionsContext context;
@@ -17,7 +17,7 @@ public class Colleagues : Controller
         this.context = context;
     }
 
-    [HttpGet]
+    [HttpGet("get")]
     public Task<IActionResult> Get(string fullname = "")
     {
         var users = context.Users.Where(user => user.FullName.Contains(fullname)).ToList();
