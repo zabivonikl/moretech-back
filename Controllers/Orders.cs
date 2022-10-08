@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MoretechBack.Controllers.ModelWrappers;
 using MoretechBack.Database;
 using MoretechBack.Database.Models;
 using MoretechBack.PolygonApi;
@@ -29,7 +30,8 @@ public class Orders : Controller
             return BadRequest();
 
         var users = context.Users
-            .Include(user => user.Orders);
+            .Include(user => user.Orders)
+            .ThenInclude(order => order.Product);
         
         var user = await users.FirstOrDefaultAsync(u => u.Id == parsedId);
         if (user == null)
@@ -41,11 +43,11 @@ public class Orders : Controller
     [HttpPost("new")]
     public async Task<IActionResult> NewOrder(OrderDto orderData)
     {
-        var customer = await context.Users.FirstOrDefaultAsync(user => user.Id == orderData.UserId);
+        var customer = await context.Users.FirstOrDefaultAsync(user => user.Id == Guid.Parse(orderData.UserId));
         if (customer == null) 
             return BadRequest();
         
-        var product = await context.Products.FirstOrDefaultAsync(product => product.Id == orderData.ProductId);
+        var product = await context.Products.FirstOrDefaultAsync(product => product.Id == Guid.Parse(orderData.ProductId));
         if (product == null) 
             return BadRequest();
 

@@ -36,10 +36,9 @@ public class Order
 
     public int Count { get; protected set; }
     
-    public User Owner { get; protected set; }
+    [JsonIgnore] public User Owner { get; protected set; }
     
-    [JsonIgnore]
-    private Guid OwnerId { get; set; }
+    [JsonInclude] public Guid OwnerId { get; set; }
     
     public string PhoneNumber { get; protected set; }
     

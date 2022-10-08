@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MoretechBack.Controllers;
+namespace MoretechBack.Controllers.ModelWrappers;
 
 public class OrderDto
 {
@@ -14,18 +14,18 @@ public class OrderDto
         string? color = null,
         string? size = null)
     {
-        UserId = Guid.Parse(userId);
-        ProductId = Guid.Parse(productId);
+        UserId = userId;
+        ProductId = productId;
         Count = count;
-        Color = color;
-        Size = size;
         Address = address;
         PhoneNumber = phoneNumber;
+        Color = color;
+        Size = size;
     }
     
-    public Guid UserId { get; }
+    public string UserId { get; }
     
-    public Guid ProductId { get; }
+    public string ProductId { get; }
 
     public int Count { get; }
     
