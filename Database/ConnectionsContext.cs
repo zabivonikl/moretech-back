@@ -20,5 +20,8 @@ public sealed class ConnectionsContext : DbContext
         
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new AchievementConfiguration());
+        modelBuilder.ApplyConfiguration(new NotificationConfiguration());
+        modelBuilder.ApplyConfiguration(new NotificationStatusConfiguration());
+        modelBuilder.ApplyConfiguration(new NotificationStatusRelationConfiguration());
     }
 }

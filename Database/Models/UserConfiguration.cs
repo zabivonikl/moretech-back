@@ -13,5 +13,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(achievement => achievement.Owner)
             .OnDelete(DeleteBehavior.Cascade)
             .HasForeignKey("OwnerId");
+        
+        builder
+            .HasMany(user => user.Notification)
+            .WithOne(notification => notification.Owner)
+            .OnDelete(DeleteBehavior.Cascade)
+            .HasForeignKey("OwnerId");
     }
 }
