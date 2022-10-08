@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MoretechBack.Auth;
 using MoretechBack.Database;
+using MoretechBack.PolygonApi;
 
 namespace MoretechBack;
 
@@ -18,7 +19,7 @@ public class Startup
     {
         string connectionString = configuration.GetConnectionString("MoretechBackDbConnectionString");
         serviceCollection.AddDbContext<ConnectionsContext>(options => options.UseNpgsql(connectionString));
-        serviceCollection.AddSingleton(_ => new PolygonApi.Client(configuration["MoretechBack:PolygonApi"]));
+        serviceCollection.AddSingleton<IPolygonApiClient>(_ => new Client(configuration["MoretechBack:PublicPolygonApi"]));
 
         serviceCollection.Configure<JsonOptions>(options =>
             {
@@ -39,19 +40,22 @@ public class Startup
     {
         if (env.IsDevelopment())
         {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
         
-        connectionsContext.Database.Migrate();
+        // connectionsContext.Database.Migrate();
         Console.WriteLine("Database migrated");
         
 
-        app.UseAuthorization();
         app.UseAuthentication();
         
         app.UseHttpsRedirection();
         app.UseRouting();
+        
+        app.UseAuthorization();
+        
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

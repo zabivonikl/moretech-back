@@ -6,20 +6,22 @@ public record HistoryRecord
 {
     [JsonConstructor]
     public HistoryRecord(
+        string hash,
         long blockNumber, 
-        long timestamp, 
+        long timeStamp, 
         string contractAddress, 
         string from, 
         string to, 
-        long value, 
-        long tokenId, 
         string tokenName, 
         string tokenSymbol, 
         long gasUsed, 
-        long confirmations)
+        long confirmations,
+        long? value = null,
+        long? tokenId = null)
     {
+        Hash = hash;
         BlockNumber = blockNumber;
-        Timestamp = timestamp;
+        TimeStamp = timeStamp;
         ContractAddress = contractAddress;
         From = from;
         To = to;
@@ -31,9 +33,11 @@ public record HistoryRecord
         Confirmations = confirmations;
     }
 
+    public string Hash { get; }
+
     public long BlockNumber { get; }
     
-    public long Timestamp { get; }
+    public long TimeStamp { get; }
     
     public string ContractAddress { get; }
     
@@ -41,9 +45,9 @@ public record HistoryRecord
     
     public string To { get; }
     
-    public long Value { get; }
+    public long? Value { get; }
     
-    public long TokenId { get; }
+    public long? TokenId { get; }
     
     public string TokenName { get; }
     
