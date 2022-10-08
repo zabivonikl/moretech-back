@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MoretechBack.Controllers.ModelWrappers;
 using MoretechBack.Database;
+using NotificationModel = MoretechBack.Database.Models.Notification;
 
 namespace MoretechBack.Controllers;
 
@@ -38,10 +39,10 @@ public class Notification : Controller
     [HttpPost("create")]
     public async Task<IActionResult> Post(NotificationDTO notificationDto)
     {
-        Database.Models.User user = await context.Users.Include(user => user.Notification).FirstOrDefaultAsync(u => u.Id == Guid.Parse(notificationDto.Owner));
+        var user = await context.Users.Include(user => user.Notification).FirstOrDefaultAsync(u => u.Id == Guid.Parse(notificationDto.Owner));
         if (user == null)
             return BadRequest();
-        Database.Models.Notification notification = new Database.Models.Notification()
+        var notification = new NotificationModel
         {
             Read = false, 
             FullDescription = notificationDto.FullDescription,

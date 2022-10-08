@@ -40,6 +40,9 @@
         <Compile Update="Database\Models\OrderStatus.cs">
           <DependentUpon>Order.cs</DependentUpon>
         </Compile>
+        <Compile Update="Database\Models\UserAchievementConfiguration.cs">
+          <DependentUpon>UserAchievement.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

@@ -20,5 +20,5 @@ public class Notification
 
     public bool Read { get; set; } = false;
 
-    public List<NotificationStatus> NotificationStatus = null!;
+    public List<NotificationStatus> NotificationStatus { get; } = new();
 }
