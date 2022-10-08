@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class Balances
+public record Balances
 {
     [JsonConstructor]
     public Balances(double maticAmount, double coinsAmount)

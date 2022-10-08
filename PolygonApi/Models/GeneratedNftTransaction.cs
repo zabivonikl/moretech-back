@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class GeneratedNftTransaction
+public record GeneratedNftTransaction
 {
     public GeneratedNftTransaction(List<long> tokens, string walletId)
     {

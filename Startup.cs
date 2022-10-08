@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using MoretechBack.Database;
 
 namespace MoretechBack;
@@ -12,7 +13,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddDbContext<Context>();
+        string connectionString = configuration.GetConnectionString("MoretechBackDbConnectionString");
+        serviceCollection.AddDbContext<ConnectionsContext>(options => options.UseNpgsql(connectionString));
         serviceCollection.AddSingleton(_ => new PolygonApi.Client(configuration["MoretechBack:PolygonApi"]));
 
         serviceCollection.Configure<JsonOptions>(options =>

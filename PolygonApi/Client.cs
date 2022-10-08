@@ -106,10 +106,12 @@ public class Client
         return (generatedNft!.WalletId, generatedNft.Tokens);
     }
 
-    private async Task GetTransactionHistory(string publicKey, int page, int offset, string sort)
+    private async Task<List<HistoryRecord>> GetTransactionHistory(string publicKey, int page, int offset, string sort)
     {
         var requestParams = new { Page = page, Offset = offset, Sort = sort };
         var response = await client.PostAsJsonAsync($"{BaseUrl}/v1/wallets/{publicKey}/history", requestParams, JsonOptions);
-        throw new NotImplementedException();
+        var historyJson = await response.Content.ReadAsStreamAsync();
+        var history = await JsonSerializer.DeserializeAsync<HistoryResponse>(historyJson);
+        return history!.History;
     }
 }

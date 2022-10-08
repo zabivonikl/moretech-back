@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class TransactionResponse
+public record TransactionResponse
 {
     [JsonConstructor]
     public TransactionResponse(string transactionHash) =>

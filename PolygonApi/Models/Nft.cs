@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class Nft
+public record Nft
 {
     [JsonConstructor]
     public Nft(long tokenId, string uri, string publicKey)

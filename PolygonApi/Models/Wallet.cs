@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class Wallet
+public record Wallet
 {
     [JsonConstructor]
     public Wallet(string publicKey, string privateKey)

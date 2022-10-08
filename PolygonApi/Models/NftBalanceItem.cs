@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class NftBalanceItem
+public record NftBalanceItem
 {
     [JsonConstructor]
     public NftBalanceItem(string uri, List<long> tokens)

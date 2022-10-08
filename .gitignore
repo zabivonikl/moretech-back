@@ -1,5 +1,6 @@
 ﻿**/bin
 **/obj
-appsettings.json
 /.idea
 /MoretechBack.sln.DotSettings
+/appsettings.Production.json
+/appsettings.Development.json

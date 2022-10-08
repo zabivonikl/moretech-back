@@ -2,7 +2,7 @@
 
 namespace MoretechBack.PolygonApi.Models;
 
-public class TransactionStatus
+public record TransactionStatus
 {
     [JsonConstructor]
     public TransactionStatus(string status) =>
