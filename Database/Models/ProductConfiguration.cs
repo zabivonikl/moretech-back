@@ -11,6 +11,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(product => product.Images)
             .HasConversion(
                 images => images.Aggregate(string.Empty, (acc, image) => $"{acc}{image}; ", r => r.Remove(r.Length - 2)),
-                str => str.Split("; ", StringSplitOptions.RemoveEmptyEntries));
+                str => str.Split("; ", StringSplitOptions.RemoveEmptyEntries).ToList());
     }
 }

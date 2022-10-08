@@ -8,5 +8,7 @@ public enum Role : byte
     
     Director,
     
-    Leader
+    Leader,
+    
+    Intern
 }

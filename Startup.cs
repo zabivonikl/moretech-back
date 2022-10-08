@@ -64,7 +64,6 @@ public class Startup
         
         // connectionsContext.Database.Migrate();
         Console.WriteLine("Database migrated");
-        
 
         app.UseAuthentication();
         

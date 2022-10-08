@@ -117,4 +117,12 @@ public class Client : IPolygonApiClient
         await GetTransactionHistory(user.PublicKey, 0, 20, "dsc");
 
     public async Task<double> GetRubleBalance(User user) => (await GetWalletsBalance(user.PublicKey)).RublesAmount;
+
+    public async Task DecreaseMoney(User user, double amount)
+    {
+        double balance = await GetRubleBalance(user);
+        if (balance < amount) 
+            throw new InvalidOperationException("Not enough money!");
+        await TransferRubble(user.PrivateKey, polygonPublic, amount);
+    }
 }
