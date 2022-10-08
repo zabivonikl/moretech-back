@@ -1,17 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using MoretechBack.Database.Models;
+#pragma warning disable CS8618
 
 namespace MoretechBack.Database;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
 public sealed class ConnectionsContext : DbContext
 {
-    public DbSet<User> Users { get; } = null!;
+    public DbSet<User> Users { get; private set; }
 
     public ConnectionsContext(DbContextOptions<ConnectionsContext> options) : base(options)
     {
-        // Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
