@@ -17,7 +17,7 @@ public class Auth : Controller
         this.context = context;
     }
     
-    [HttpPost("/login")]
+    [HttpPost("/auth/login")]
     public async Task<IActionResult> Token(string login, string password)
     {
         var userGuid = await GetUser(login, password);
