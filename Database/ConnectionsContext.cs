@@ -11,7 +11,7 @@ public sealed class ConnectionsContext : DbContext
 
     public ConnectionsContext(DbContextOptions<ConnectionsContext> options) : base(options)
     {
-        Database.EnsureCreated();
+        // Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
