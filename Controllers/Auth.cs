@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MoretechBack.Auth;
@@ -25,10 +26,11 @@ public class Auth : Controller
             return Unauthorized();
 
         var now = DateTime.UtcNow;
+        var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Secret phaseSecret phaseSecret phaseSecret phaseSecret phaseSecret phase"));
         
         var jwt = new JwtSecurityToken(
             expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
-            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+            signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
         );
         string? encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
  
