@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using MoretechBack.Auth;
 using MoretechBack.Database;
 
 namespace MoretechBack;
@@ -25,6 +28,8 @@ public class Startup
             }
         );
         
+        serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+        
         serviceCollection.AddControllers();
         serviceCollection.AddEndpointsApiExplorer();
         serviceCollection.AddSwaggerGen();
@@ -38,6 +43,9 @@ public class Startup
             app.UseSwaggerUI();
         }
 
+        app.UseAuthorization();
+        app.UseAuthentication();
+        
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseEndpoints(endpoints => endpoints.MapControllers());

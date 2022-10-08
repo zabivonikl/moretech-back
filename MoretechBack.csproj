@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
           <PrivateAssets>all</PrivateAssets>
@@ -15,10 +16,6 @@
         </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +31,8 @@
       <_ContentIncludedByDefault Remove="Database\obj\Database.csproj.nuget.dgspec.json" />
       <_ContentIncludedByDefault Remove="Database\obj\project.assets.json" />
       <_ContentIncludedByDefault Remove="Database\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="MoreTechBack\obj\MoretechBack.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="MoreTechBack\obj\project.assets.json" />
     </ItemGroup>
 
 </Project>
