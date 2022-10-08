@@ -34,6 +34,13 @@ public class Startup
         serviceCollection.AddControllers();
         serviceCollection.AddEndpointsApiExplorer();
         serviceCollection.AddSwaggerGen();
+        
+        serviceCollection.AddCors(o => o.AddPolicy("AllPolicy", builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ConnectionsContext connectionsContext)
@@ -53,8 +60,9 @@ public class Startup
         
         app.UseHttpsRedirection();
         app.UseRouting();
-        
         app.UseAuthorization();
+        
+        app.UseCors("AllPolicy");
         
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
