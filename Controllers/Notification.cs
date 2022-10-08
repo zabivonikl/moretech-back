@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MoretechBack.Controllers.ModelWrappers;
 using MoretechBack.Database;
 
 namespace MoretechBack.Controllers;
@@ -35,11 +36,17 @@ public class Notification : Controller
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Post(Database.Models.Notification notification)
+    public async Task<IActionResult> Post(NotificationDTO notificationDto)
     {
-        var user = await context.Users.FirstOrDefaultAsync(u => u.Id.Equals(notification.Owner));
+        Database.Models.User user = await context.Users.Include(user => user.Notification).FirstOrDefaultAsync(u => u.Id == Guid.Parse(notificationDto.Owner));
         if (user == null)
             return BadRequest();
+        Database.Models.Notification notification = new Database.Models.Notification()
+        {
+            Read = false, 
+            FullDescription = notificationDto.FullDescription,
+            ShortDescription = notificationDto.ShortDescription
+        };
         user.Notification.Add(notification);
         await context.SaveChangesAsync();
 
